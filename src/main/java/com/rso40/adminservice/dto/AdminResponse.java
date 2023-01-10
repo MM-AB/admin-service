@@ -18,5 +18,5 @@ public class AdminResponse {
     private String email;
     private String password;
     private String address;
-    private BigDecimal admin;
+    private int admin;
 }
