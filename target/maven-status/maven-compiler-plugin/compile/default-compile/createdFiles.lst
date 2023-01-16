@@ -1,9 +1,14 @@
+com/rso40/adminservice/dto/ProductRes$ProductResBuilder.class
 com/rso40/adminservice/repository/AdminRepository.class
 com/rso40/adminservice/model/Admin$AdminBuilder.class
 com/rso40/adminservice/AdminServiceApplication.class
+com/rso40/adminservice/dto/ProductReq$ProductReqBuilder.class
+com/rso40/adminservice/dto/ProductRes.class
 com/rso40/adminservice/dto/AdminResponse.class
+com/rso40/adminservice/controller/AdminController$1.class
 com/rso40/adminservice/service/AdminService.class
 com/rso40/adminservice/dto/AdminRequest$AdminRequestBuilder.class
+com/rso40/adminservice/dto/ProductReq.class
 com/rso40/adminservice/dto/AdminRequest.class
 com/rso40/adminservice/controller/AdminController.class
 com/rso40/adminservice/dto/AdminResponse$AdminResponseBuilder.class
