@@ -33,7 +33,7 @@ public class AdminController {
         return modelAndView;
     }
 
-    @PostMapping("post-user")
+    @PostMapping("/post-user")
     @ResponseStatus(HttpStatus.CREATED)
     public ModelAndView createAdmin(AdminRequest adminRequest){
         //System.out.println("Post mapping");
@@ -44,7 +44,7 @@ public class AdminController {
         return modelAndView;
     }
 
-    @GetMapping("users")
+    @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView getAllAdmins() {
         ModelAndView modelAndView = new ModelAndView();
@@ -54,7 +54,7 @@ public class AdminController {
         return modelAndView;
     }
 
-    @GetMapping("new-user")
+    @GetMapping("/new-user")
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView addNewUser(AdminRequest adminRequest){
         //admin.addAttribute("admin", new Admin());
@@ -65,7 +65,7 @@ public class AdminController {
         return modelAndView;
     }
 
-    @GetMapping("products")
+    @GetMapping("/products")
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView getAllProducts(){
         RestTemplate restTemplate = new RestTemplate();
@@ -83,7 +83,7 @@ public class AdminController {
         return modelAndView;
     }
 
-    @GetMapping("new-product")
+    @GetMapping("/new-product")
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView addNewProduct(ProductReq productReq){
         //System.out.println("Get mapping");
@@ -93,7 +93,7 @@ public class AdminController {
         return modelAndView;
     }
 
-    @PostMapping("post-product")
+    @PostMapping("/post-product")
     @ResponseStatus(HttpStatus.CREATED)
     public ModelAndView createProduct(ProductReq productReq){
         ModelAndView modelAndView = new ModelAndView();
