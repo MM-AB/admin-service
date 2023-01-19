@@ -1,13 +1,12 @@
 package com.rso40.adminservice.controller;
 
-import org.springframework.ui.Model;
+
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rso40.adminservice.dto.AdminRequest;
 import com.rso40.adminservice.dto.AdminResponse;
 import com.rso40.adminservice.dto.ProductReq;
 import com.rso40.adminservice.dto.ProductRes;
-import com.rso40.adminservice.model.Admin;
 import com.rso40.adminservice.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,27 +14,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.stereotype.Controller;
+
 
 
 import java.util.List;
 
 
 @RestController
-//@Controller
 @RequestMapping("admin")
 @RequiredArgsConstructor
 public class AdminController {
 
+    private static final String PATH_URL = "http://20.120.124.86"; //http://localhost:8083 //http://20.120.124.86
     private final AdminService adminService;
 
-    /*@GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public String index (Model model) {
-        //ModelAndView modelAndView = new ModelAndView();
-        //modelAndView.setViewName("index");
-        return "index";
-    }*/
 
     @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
@@ -45,16 +37,6 @@ public class AdminController {
         return modelAndView;
     }
 
-    /*@PostMapping("/post-user")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String createAdmin(Model model, AdminRequest adminRequest){
-        //System.out.println("Post mapping");
-        //System.out.println(adminRequest);
-        adminService.createAdmin(adminRequest);
-        //ModelAndView modelAndView = new ModelAndView();
-        //modelAndView.setViewName("newuser");
-        return "newuser";
-    }*/
 
     @PostMapping("/post-user")
     @ResponseStatus(HttpStatus.CREATED)
@@ -67,15 +49,6 @@ public class AdminController {
         return modelAndView;
     }
 
-    /*@GetMapping("/users")
-    @ResponseStatus(HttpStatus.OK)
-    public String getAllAdmins(Model model) {
-        //ModelAndView modelAndView = new ModelAndView();
-        //modelAndView.setViewName("userlist");
-        List<AdminResponse> listUsers = adminService.getAllAdmins();
-        model.addAttribute("listUsers",listUsers);
-        return "userlist";
-    }*/
 
     @GetMapping("/users")
     @ResponseStatus(HttpStatus.OK)
@@ -88,17 +61,6 @@ public class AdminController {
     }
 
 
-    /*@GetMapping("/new-user")
-    @ResponseStatus(HttpStatus.OK)
-    public String addNewUser(Model model, AdminRequest adminRequest){
-        //admin.addAttribute("admin", new Admin());
-        //System.out.println("Get mapping");
-        //System.out.println(adminRequest);
-        //ModelAndView modelAndView = new ModelAndView();
-        //modelAndView.setViewName("newuserform");
-        return "newuserform";
-    }*/
-
     @GetMapping("/new-user")
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView addNewUser(AdminRequest adminRequest){
@@ -110,23 +72,6 @@ public class AdminController {
         return modelAndView;
     }
 
-    /*@GetMapping("/products")
-    @ResponseStatus(HttpStatus.OK)
-    public String getAllProducts(Model model){
-        RestTemplate restTemplate = new RestTemplate();
-        ObjectMapper mapper = new ObjectMapper();
-        //ModelAndView modelAndView = new ModelAndView();
-
-        ResponseEntity<ProductRes[]> resResponseEntity = restTemplate.getForEntity("http://" + instanceInfo.getIPAddr() + ":" +"http://localhost:8083/product", ProductRes[].class);
-        List<ProductRes> productRes = mapper.convertValue(resResponseEntity.getBody(), new TypeReference<List<ProductRes>>() {});
-
-        //System.out.println("Get mapping");
-        //System.out.println(productRes);
-
-        //modelAndView.setViewName("productlist");
-        model.addAttribute("productRes",productRes);
-        return "productlist";
-    }*/
 
     @GetMapping("/products")
     @ResponseStatus(HttpStatus.OK)
@@ -135,7 +80,7 @@ public class AdminController {
         ObjectMapper mapper = new ObjectMapper();
         ModelAndView modelAndView = new ModelAndView();
 
-        ResponseEntity<ProductRes[]> resResponseEntity = restTemplate.getForEntity("http://20.120.124.86/product", ProductRes[].class); //http://localhost:8083
+        ResponseEntity<ProductRes[]> resResponseEntity = restTemplate.getForEntity(PATH_URL+"/product", ProductRes[].class);
         List<ProductRes> productRes = mapper.convertValue(resResponseEntity.getBody(), new TypeReference<List<ProductRes>>() {});
 
         //System.out.println("Get mapping");
@@ -146,15 +91,6 @@ public class AdminController {
         return modelAndView;
     }
 
-    /*@GetMapping("/new-product")
-    @ResponseStatus(HttpStatus.OK)
-    public String addNewProduct(Model model, ProductReq productReq){
-        //System.out.println("Get mapping");
-        //System.out.println(productReq);
-        //ModelAndView modelAndView = new ModelAndView();
-        //modelAndView.setViewName("newproductform");
-        return "newproductform";
-    }*/
 
     @GetMapping("/new-product")
     @ResponseStatus(HttpStatus.OK)
@@ -175,25 +111,10 @@ public class AdminController {
         //System.out.println("Post mapping");
         //System.out.println(productReq);
 
-        ResponseEntity<ProductReq> result = restTemplate.postForEntity("http://20.120.124.86/product", productReq, ProductReq.class); //http://localhost:8083
+        ResponseEntity<ProductReq> result = restTemplate.postForEntity(PATH_URL + "/product", productReq, ProductReq.class);
 
         modelAndView.setViewName("newproduct");
         return modelAndView;
     }
-
-    /*@PostMapping("/post-product")
-    @ResponseStatus(HttpStatus.CREATED)
-    public String createProduct(Model model, ProductReq productReq){
-        RestTemplate restTemplate = new RestTemplate();
-
-        //System.out.println("Post mapping");
-        //System.out.println(productReq);
-
-        ResponseEntity<ProductReq> result = restTemplate.postForEntity("http://localhost:8083/product", productReq, ProductReq.class);
-
-        //modelAndView.setViewName("newproduct");
-        return "newproduct";
-    }*/
-
 
 }
