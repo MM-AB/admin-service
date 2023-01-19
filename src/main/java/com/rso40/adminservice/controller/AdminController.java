@@ -21,7 +21,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("admin")
+@RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminController {
 
@@ -29,7 +29,7 @@ public class AdminController {
     private final AdminService adminService;
 
 
-    @GetMapping("")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView index () {
         ModelAndView modelAndView = new ModelAndView();
