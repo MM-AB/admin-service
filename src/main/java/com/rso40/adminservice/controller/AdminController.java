@@ -28,7 +28,7 @@ public class AdminController {
 
     private final AdminService adminService;
 
-    @GetMapping("")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public String index (Model model) {
         //ModelAndView modelAndView = new ModelAndView();
