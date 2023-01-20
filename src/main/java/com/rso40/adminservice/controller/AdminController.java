@@ -21,7 +21,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin**")
 @RequiredArgsConstructor
 public class AdminController {
 
@@ -43,10 +43,17 @@ public class AdminController {
     public ModelAndView createAdmin(AdminRequest adminRequest){
         //System.out.println("Post mapping");
         //System.out.println(adminRequest);
-        adminService.createAdmin(adminRequest);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("newuser");
-        return modelAndView;
+
+        try{
+            adminService.createAdmin(adminRequest);
+            modelAndView.setViewName("newuser");
+            return modelAndView;
+        }
+        catch (Exception e){
+            modelAndView.setViewName("index2");
+            return modelAndView;
+        }
     }
 
 
@@ -54,10 +61,17 @@ public class AdminController {
     @ResponseStatus(HttpStatus.OK)
     public ModelAndView getAllAdmins() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("userlist");
-        List<AdminResponse> listUsers = adminService.getAllAdmins();
-        modelAndView.getModelMap().addAttribute("listUsers",listUsers);
-        return modelAndView;
+
+        try{
+            modelAndView.setViewName("userlist");
+            List<AdminResponse> listUsers = adminService.getAllAdmins();
+            modelAndView.getModelMap().addAttribute("listUsers",listUsers);
+            return modelAndView;
+        }
+        catch (Exception e){
+            modelAndView.setViewName("index2");
+            return modelAndView;
+        }
     }
 
 
@@ -68,8 +82,15 @@ public class AdminController {
         //System.out.println("Get mapping");
         //System.out.println(adminRequest);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("newuserform");
-        return modelAndView;
+        try{
+            modelAndView.setViewName("newuserform");
+            return modelAndView;
+        }
+        catch (Exception e){
+            modelAndView.setViewName("index2");
+            return modelAndView;
+        }
+
     }
 
 
@@ -80,15 +101,21 @@ public class AdminController {
         ObjectMapper mapper = new ObjectMapper();
         ModelAndView modelAndView = new ModelAndView();
 
-        ResponseEntity<ProductRes[]> resResponseEntity = restTemplate.getForEntity(PATH_URL+"/product", ProductRes[].class);
-        List<ProductRes> productRes = mapper.convertValue(resResponseEntity.getBody(), new TypeReference<List<ProductRes>>() {});
+        try{
+            ResponseEntity<ProductRes[]> resResponseEntity = restTemplate.getForEntity(PATH_URL+"/product", ProductRes[].class);
+            List<ProductRes> productRes = mapper.convertValue(resResponseEntity.getBody(), new TypeReference<List<ProductRes>>() {});
 
-        //System.out.println("Get mapping");
-        //System.out.println(productRes);
+            //System.out.println("Get mapping");
+            //System.out.println(productRes);
 
-        modelAndView.setViewName("productlist");
-        modelAndView.getModelMap().addAttribute("productRes",productRes);
-        return modelAndView;
+            modelAndView.setViewName("productlist");
+            modelAndView.getModelMap().addAttribute("productRes",productRes);
+            return modelAndView;
+        }
+        catch (Exception e){
+            modelAndView.setViewName("index2");
+            return modelAndView;
+        }
     }
 
 
@@ -98,8 +125,15 @@ public class AdminController {
         //System.out.println("Get mapping");
         //System.out.println(productReq);
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("newproductform");
-        return modelAndView;
+        try{
+            modelAndView.setViewName("newproductform");
+            return modelAndView;
+        }
+        catch (Exception e){
+            modelAndView.setViewName("index2");
+            return modelAndView;
+        }
+
     }
 
     @PostMapping("/post-product")
@@ -108,13 +142,19 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         RestTemplate restTemplate = new RestTemplate();
 
-        //System.out.println("Post mapping");
-        //System.out.println(productReq);
+        try{
+            //System.out.println("Post mapping");
+            //System.out.println(productReq);
 
-        ResponseEntity<ProductReq> result = restTemplate.postForEntity(PATH_URL + "/product", productReq, ProductReq.class);
+            ResponseEntity<ProductReq> result = restTemplate.postForEntity(PATH_URL + "/product", productReq, ProductReq.class);
 
-        modelAndView.setViewName("newproduct");
-        return modelAndView;
+            modelAndView.setViewName("newproduct");
+            return modelAndView;
+        }
+        catch (Exception e){
+            modelAndView.setViewName("index2");
+            return modelAndView;
+        }
     }
 
 }
