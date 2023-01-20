@@ -21,7 +21,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("admin")
+@RequestMapping("/admin**")
 @RequiredArgsConstructor
 public class AdminController {
 
@@ -80,7 +80,7 @@ public class AdminController {
         ObjectMapper mapper = new ObjectMapper();
         ModelAndView modelAndView = new ModelAndView();
 
-        ResponseEntity<ProductRes[]> resResponseEntity = restTemplate.getForEntity(PATH_URL+"/product", ProductRes[].class);
+        ResponseEntity<ProductRes[]> resResponseEntity = restTemplate.getForEntity(PATH_URL+"/product/product", ProductRes[].class);
         List<ProductRes> productRes = mapper.convertValue(resResponseEntity.getBody(), new TypeReference<List<ProductRes>>() {});
 
         //System.out.println("Get mapping");
@@ -111,7 +111,7 @@ public class AdminController {
         //System.out.println("Post mapping");
         //System.out.println(productReq);
 
-        ResponseEntity<ProductReq> result = restTemplate.postForEntity(PATH_URL + "/product", productReq, ProductReq.class);
+        ResponseEntity<ProductReq> result = restTemplate.postForEntity(PATH_URL + "/product/product", productReq, ProductReq.class);
 
         modelAndView.setViewName("newproduct");
         return modelAndView;
